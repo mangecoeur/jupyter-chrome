@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Jupyer Viewer",
+  "version": "0.2",
+  "icons": {
+    "16": "jupyter-sq-16.png",
+    "128": "jupyter-sq-128.png"
+  },
+  "app": {
+    "background": {
+      "scripts": ["config.js", "main.js"]
+    }
+  },
+  "permissions": [
+    "http://localhost/*",
+    "http://localhost:8888/*",
+    "webview"
+  ]
+}
