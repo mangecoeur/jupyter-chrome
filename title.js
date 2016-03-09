@@ -11,7 +11,6 @@ var webviewTitleInjectionComplete = false;
       return function(e) {
 
         title = document.title;
-        console.log(title);
         var data = {
           'name': tabName,
           'title': title || '[no title]'
@@ -43,26 +42,14 @@ var webviewTitleInjectionComplete = false;
         bindEmbedder(e);
         bindTabName(e);
 
-
-
         // Notify the embedder of every title change
         var titleElement = document.querySelector('title');
-
         var observer = new window.MutationObserver(function(mutations) {
             mutations.forEach(function(mutation) {
-                console.log('new title:', mutation.target.textContent);
                 postTitle();
             });
         });
         observer.observe(titleElement, { subtree: true, characterData: true, childList: true });
-        //
-        //
-        // if (titleElement) {
-        //   titleElement.addEventListener('change', postTitle);
-        // } else {
-        //   console.warn('Warning: No <title> element to bind to');
-        //   postTitle();
-        // }
 
         // Ensure initial title notification
         if (title === null) {
@@ -70,6 +57,9 @@ var webviewTitleInjectionComplete = false;
         }
 
         listenersAreBound = true;
+
+        el = document.querySelector('#header-container')
+        el.style.display = 'none';
       }
     });
   }

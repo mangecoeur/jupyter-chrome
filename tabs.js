@@ -148,6 +148,8 @@ var tabs = (function(popupModule) {
     this.webview = webview;
     this.scriptInjectionAttempted = false;
 
+    this.cssFilename = config.cssFilename;
+    this.cssString = null;
     this.pinned = false;
 
     this.initLabelContainer();
@@ -211,7 +213,9 @@ var tabs = (function(popupModule) {
     }
     else{
       this.label.innerText = newLabel;
-
+      if (this.selected) {
+        //TODO: Set window title somehow
+      }
     }
   };
 
@@ -262,6 +266,8 @@ var tabs = (function(popupModule) {
     }
     this.loading = false;
     if (!this.scriptInjectionAttempted) {
+
+      // this.injectCss();
       // Try to inject title-update-messaging script
       var tab = this;
       this.webview.executeScript(
@@ -321,6 +327,17 @@ var tabs = (function(popupModule) {
 
     this.webview.src = url;
 
+  };
+
+  Tab.prototype.injectCss = function() {
+    console.log('inject.css');
+    if (this.cssString) {
+      this.webview.insertCSS({'code': this.cssString});
+    } else {
+      // On initial load, cssString may not be ready yet;
+      // use the initial file instead
+      this.webview.insertCSS({'file': 'inject.css'});
+    }
   };
 
   Tab.prototype.pin = function() {

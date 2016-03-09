@@ -184,6 +184,11 @@ webview {
 
 #tab-container li.pinned {
   width: 18px;
+  border: 2px solid #337AB7;
+  border-left: 1px;
+  border-top: 1px;
+  border-bottom: 1px;
+  /*border-color: #337AB7;*/
 
 }
 #tab-container li.pinned p {
