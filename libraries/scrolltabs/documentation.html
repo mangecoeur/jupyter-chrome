@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jQuery ScrollTabs :: Josh Reed</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="examples/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="examples/css/bootstrap-theme.min.css">
+
+  <link rel="stylesheet" href="css/scrolltabs.css">
+  <link rel="stylesheet" href="examples/css/demo.css">
+</head>
+<body>
+
+
+  <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">jQuery ScrollTabs</a>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="index.html">Download</a></li>
+        <li><a href="index.html#examples">Examples</a></li>
+        <li><a href="#">Documentation</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!--
+  <div class="colored_header">
+    <div class="container"</div>
+      <h1 style="border-bottom: 1px dotted #CCCCFF;">Too Many Tabs in Your Tabbed Interface? Scroll 'Em!</h1>
+      <h3>Customizable. Free. Dynamic.</h3>
+      <div>You can make it your own by using simple CSS</div>
+    </div>
+  </div>
+  -->
+  
+  <div class="container">
+    <a name="examples"></a>
+    <h1>Documentation</h1>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Table of Contents</h3>
+      </div>
+      <div class="panel-body" style="background-color: #F6F6F6;">
+        <ul>
+          <li><a href="#options">Available Options</a></li>
+          <li><a href="#api">JavaScript API</a></li>
+          <li><a href="#css">CSS Selectors</a></li>
+          <li><a href="#mousewheel">Mouse Wheel Scrolling</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <h2><a id="options"></a>Available Options</h2>
+
+    <p><code>scroll_distance</code> - Pixel width distance for each scroll click. Default: 300 pixels.</p>
+    <br />
+    <p><code>scroll_duration</code> - Animation time for scrolling in milliseconds. Default: 300 milliseconds.</p>
+    <br />
+    <p><code>left_arrow_size</code> - Pixel width for the scroll button on the left side. Default: 26 pixels</p>
+    <br />
+    <p><code>right_arrow_size</code> - Pixel width for the scroll button on the right side. Default 26 pixels.</p>
+    <br />
+    <p><code>click_callback</code> - Callback function on click. Accpets the click event object as an argument. 
+    The default callback function will change the page to the href in the 'rel' attribute of the item's span tag.</p>
+    <br />
+
+    <h3>Usage</h3>
+
+    <pre>
+    $('#tabSet').scrollTabs({
+      scroll_distance: 350,
+      scroll_duration: 350,
+      left_arrow_size: 26,
+      right_arrow_size: 26,
+      click_callback: function(e){
+        var val = $(this).attr('rel');
+        if(val){
+          window.location.href = val;
+        }
+      }
+    });</pre>
+
+    <h2><a id="api"></a>JavaScript API</h2>
+
+    <p>The returned object will have the following methods.</p>
+
+    <pre>
+      var tabSet = $('#tab_set').scrollTabs();
+      tabSet.addTab('&lt;span&gt;Hi&lt;/span&gt;');</pre>
+    
+    <br />
+    
+    <p>
+      <strong><code>domObject</code></strong> - Access the DOM Object that this TabSet was created on.
+    </p>
+    
+    <br />
+    
+    <p>
+      <strong><code>addTab(html, position)</code></strong> - Add a tab to the ScrollTabs interface. 
+      The new tab is created from the HTML string that you pass to this method. Providing an HTML
+      string provides you with the full flexibility to augment your span tag fully to meet the needs
+      of your specific use-case. Optionally, you may pass a position value, which if not provided 
+      will default to placing the new tab as the last tab. The positions are zero-indexed, and the 
+      new tab will shift all items at and past the indicated position down one item. 
+    </p>
+
+    <pre>
+    // Place a new tab into the first position
+    tabSet.addTab('&lt;span&gt;Hi&lt;/span&gt;', 0);</pre>
+
+    <br />
+
+    <p>
+      <strong><code>removeTabs(jQuerySelector)</code></strong> - Removes all the items that are
+      returned by the jQuery selector string (scoped within this object).
+    </p>
+    
+    <pre>
+    // Remove the span with a specific ID
+    tabSet.removeTabs('#tab_id');
+
+    // Remove the first span, a couple of options
+    tabSet.removeTabs('span:eq(0)');
+    tabSet.removeTabs('span:nth-child(1)');</pre>
+    
+    <br />
+    
+    <p>
+      <strong><code>clearTabs()</code></strong> - Removes all the items in this ScrollTabs object.
+    </p>
+    
+    <br />
+    
+    <p>
+      <strong><code>destroy()</code></strong> - Destroys the ScrollTabs instance formatting, leaving
+      only the raw HTML contents. This is effectively the opposite of the ScrollTabs initialization.
+    </p>
+    
+    <br />
+    
+    <p>
+      <strong><code>hideTabs(jQuerySelector)</code></strong> - Hide tabs based on the jQuery Selector.
+      This is for situations where you may not want to completely remove a tab, but want to temporarily hide it.
+    </p>
+    
+    <br />
+    
+    <p>
+      <strong><code>showTabs(jQuerySelector)</code></strong> - Shows hidden tabs based on the jQuery Selector.
+    </p>
+    
+    <h2><a id="css"></a>CSS Selectors</h2>
+
+    <p>You can override the basic styling CSS to make the look of the tabs as unique as you'd like!</p>
+
+    <p><strong><code>.scroll_tabs_container</code></strong> - Wrapper for the interface. This is the DOM object you called <code>.scrollTabs()</code> on.</p>
+    
+    <br />
+    
+    <p><strong><code>div.scroll_tab_inner</code></strong> - This is a wrapper for the individual tabs themselves. Does not include the left/right scrolling buttons.</p>
+
+    <br />
+
+    <p><strong><code>div.scroll_tab_inner span</code></strong> - The individual items that will be scrolled. Additional classes for various states will be applied to these DOM objects, such as <code>.scroll_tab_first</code> (First Item), <code>.scroll_tab_last</code> (Last Item), <code>.scroll_tab_over</code> (Hover), and <code>.tab_selected</code> (Selected/Depressed).</p>
+    
+    <br />
+    
+    <p><strong><code>div.scroll_tab_inner span.scroll_tab_left_finisher</code></strong> - A DOM element inserted so that you can (should you want) add some extra styling to the left of the tabs, when the scroll buttons are hidden. Make the padding and width of the element <code>0</code> should you not need it.</p>
+    
+    <br />
+    
+    <p><strong><code>div.scroll_tab_inner span.scroll_tab_right_finisher</code></strong> - A DOM element inserted so that you can (should you want) add some extra styling to the right of the tabs, when the scroll buttons are hidden. Make the padding and width of the element <code>0</code> should you not need it.</p>
+    
+    <br />
+    
+    <p><strong><code>.scroll_tab_left_button</code></strong> - The DOM element for the left button (that scrolls the grouping left). Additional selectors available to change the styling under the specified circumstances: <code>.scroll_tab_left_button_over</code> (Hover) and <code>.scroll_tab_left_button_disabled</code> (Not Clickable--already scrolled all the way in this direction).</p>
+    
+    <br />
+    
+    <p><strong><code>.scroll_tab_right_button</code></strong> - The DOM element for the right button (that scrolls the grouping right). Additional selectors available to change the styling under the specified circumstances: <code>.scroll_tab_right_button_over</code> (Hover) and <code>.scroll_tab_right_button_disabled</code> (Not Clickable--already scrolled all the way in this direction).</p>
+    
+    <h2><a id="mousewheel"></a>Mouse Wheel Scrolling</h2>
+
+    <p>Mouse wheel scrolling requires the jQuery Mousewheel plugin to be installed, which is bundled with this download. All credit goes to Brandon Aaron (<a href="http://brandonaaron.net">http://brandonaaron.net</a>) for this fantastic plugin.</p>
+    
+    <p><strong>Disabling Mouse Wheel Scrolling:</strong> simply do not include the jQuery Mousewheel plugin.</p>
+  </div>
+
+
+  <div class="footer">
+      &copy; Copyright 2014 Josh Reed<br />
+      Created in Association with <a href='http://www.mosaik.com'>Mosaik Solutions</a><br />
+      Software is released under the MIT License
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="examples/js/bootstrap.min.js"></script>
+  
+  <script src="js/jquery.scrolltabs.js"></script>
+  <script src="js/jquery.mousewheel.js"></script>
+</body>
+</html>

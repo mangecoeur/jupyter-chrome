@@ -1,7 +1,7 @@
 var tabs = (function(popupModule) {
   var dce = function(str) { return document.createElement(str); };
 
-  var TabList = function(name, browser, tabContainer, contentContainer, newTabElement) {
+  var TabList = function(name, browser, tabContainer, contentContainer) {
     this.name = name;
     this.list = [];
     this.table = {};
@@ -10,7 +10,9 @@ var tabs = (function(popupModule) {
     this.browser = browser;
     this.tabContainer = tabContainer;
     this.contentContainer = contentContainer;
-    this.newTabElement = newTabElement;
+
+    // this.tabContainer = $(this.tabContainer).scrollTabs();
+
   };
 
   TabList.prototype.getNumTabs = function() {
@@ -73,6 +75,7 @@ var tabs = (function(popupModule) {
     this.table[tabName] = tab;
 
     this.tabContainer.insertBefore(tab.labelContainer, this.newTabElement);
+    // this.tabContainer.addTab(tab.labelContainer);
     this.contentContainer.appendChild(tab.webviewContainer);
 
     return tab;
@@ -140,6 +143,8 @@ var tabs = (function(popupModule) {
     this.url = '';
     this.loading = true;
     this.overlay = false;
+
+
     this.labelContainer = dce('li');
     this.label = dce('p');
     this.closeLink = dce('a');

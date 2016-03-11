@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jQuery ScrollTabs :: Josh Reed</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="examples/css/bootstrap.min.css">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="examples/css/bootstrap-theme.min.css">
+
+  <link rel="stylesheet" href="css/scrolltabs.css">
+  <link rel="stylesheet" href="examples/css/demo.css">
+</head>
+<body>
+
+
+  <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="container">
+      <a class="navbar-brand" href="#">jQuery ScrollTabs</a>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Download</a></li>
+        <li><a href="#examples">Examples</a></li>
+        <li><a href="documentation.html">Documentation</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="colored_header">
+    <div class="container" id='header_image'>
+      <!--<h1 style="border-bottom: 1px dotted #CCCCFF;">Too Many Tabs in Your Tabbed Interface? Scroll 'Em!</h1>
+      <h3>Customizable. Free. Dynamic.</h3>
+      <div>You can make it your own by using simple CSS</div>-->
+    </div>
+  </div>
+  
+  <div class="container">
+
+    <br />
+    <div class="jumbotron">
+      <h1>Download Now!</h1>
+      <p>Download now to get started. The package includes all the JavaScript and CSS you'll need to add ScrollTabs to your user interface.</p>
+      <p>
+        <a class="btn btn-primary btn-large" href="https://github.com/joshreed/jQuery-ScrollTabs/archive/2.0.0.zip">Download (.zip)</a>
+        <a class="btn btn-primary btn-large" href="https://github.com/joshreed/jQuery-ScrollTabs/archive/2.0.0.tar.gz">Download (.tar.gz)</a>
+      </p>
+    </div>
+
+    <hr />
+
+    <a name="examples"></a>
+    <h1>Examples</h1>
+
+    <div class="indented_text">
+      <p>
+        Automatically adjusts to detect whether scrolling is needed, ideal for responsive interfaces. One of the greatest features for jQuery ScrollTabs is that you can have different right-and-left side styling depending on if scrolling is required. 
+        Here you can see that there are rounded corners for the right and left sides when it is not wide enough to scroll, however when scrolling there are right and left arrows accordingly.
+      </p>
+
+      <div id="tabs1" class="scroll_tabs_theme_light">
+        <span>This is my tab</span>
+        <span>Another Tab</span>
+        <span>Third Tab</span>
+      </div>
+
+      <div id="tabs2" class="scroll_tabs_theme_light">
+        <span>This is my tab</span>
+        <span>Another Tab 1</span>
+        <span>Another Tab 2</span>
+        <span>Another Tab 3</span>
+        <span>Another Tab 4</span>
+        <span>Another Tab 5</span>
+        <span>Another Tab 6</span>
+        <span>Another Tab 7</span>
+        <span>Another Tab 8</span>
+        <span>Another Tab 9</span>
+        <span>Another Tab 10</span>
+        <span>Another Tab 11</span>
+        <span>Another Tab 12</span>
+      </div>
+    </div>
+
+    <h3 class="section_title">Dynamic</h3>
+
+    <div class="indented_text">
+      <p>ScrollTabs automatically adjusts when you add more items. There's a simple Javascript API for adding and removing items.</p>
+
+      <div id="tabs3" class="scroll_tabs_theme_light">
+        <span>First Item</span>
+      </div>
+      
+      <button type="button" class="btn btn-primary" onclick="javascript:tabs3.addTab('<span>Added Item</span>')">Add Item</button>
+
+      <br /><br />
+
+      <p><strong>HTML:</strong></p>
+      <pre>
+        &lt;div id=&quot;tabSet&quot; class=&quot;scroll_tabs_theme_light&quot;&gt;
+          &lt;span&gt;First Item&lt;/span&gt;
+        &lt;/div&gt;</pre>
+      
+      <p><strong>JavaScript:</strong></p>
+      <pre>
+        tabSet = $('#tabSet').scrollTabs();
+        tabSet.addTab('&lt;span&gt;Added Item&lt;/span&gt;');</pre>
+      
+    </div>
+    
+    <h3 class="section_title">List Sytax (Version 2.0+)</h3>
+
+    <div class="indented_text">
+      <p>ScrollTabs will also handle standard list syntax for greater compatibility with existing lists or other plugins.</p>
+
+      <ul id="tabs7" class="scroll_tabs_theme_light">
+        <li>First Item</li>
+        <li>Second Item</li>
+      </ul>
+      
+      <button type="button" class="btn btn-primary" onclick="javascript:tabs7.addTab('<li>Added Item</li>')">Add Item</button>
+
+      <br /><br />
+
+      <p><strong>HTML:</strong></p>
+      <pre>
+        &lt;ul id=&quot;tabSet&quot; class=&quot;scroll_tabs_theme_light&quot;&gt;
+          &lt;li&gt;First Item&lt;/li&gt;
+          &lt;li&gt;Second Item&lt;/li&gt;
+        &lt;/ul&gt;</pre>
+      
+      <p><strong>JavaScript:</strong></p>
+      <pre>
+        tabSet = $('#tabSet').scrollTabs();
+        tabSet.addTab('&lt;li&gt;Added Item&lt;/li&gt;');</pre>
+      
+    </div>
+
+    <h3 class="section_title">Custom Styling</h3>
+
+    <div class="indented_text">
+      <p>Basic initialization, <em>without any theme</em> or custom CSS applied. Previous examples used the &quot;light&quot; theme: <code>scroll_tabs_theme_light</code>.</p>
+
+      <div id="tabs4">
+        <span>First Tab</span>
+        <span>Another Tab 2</span>
+        <span>Another Tab 3</span>
+        <span>Another Tab 4</span>
+        <span>Another Tab 5</span>
+        <span>Another Tab 6</span>
+        <span>Another Tab 7</span>
+        <span>Another Tab 8</span>
+        <span>Another Tab 9</span>
+        <span>Another Tab 10</span>
+        <span>Another Tab 11</span>
+        <span>Another Tab 12</span>
+        <span>Another Tab 13</span>
+      </div>
+      
+      <button type="button" class="btn btn-primary" onclick="javascript:tabs4.removeTabs('span:eq(0)')">Remove First Item</button>
+
+      <br /><br />
+
+      <p>This is an example with the &quot;dark&quot; theme applied. To apply this theme, simply append the class <code>scroll_tabs_theme_dark</code> to the container
+      div element.</p>
+      
+      <div id="tabs5" class="scroll_tabs_theme_dark">
+        <span>First Tab</span>
+        <span>Another Tab 2</span>
+        <span>Another Tab 3</span>
+        <span>Another Tab 4</span>
+        <span>Another Tab 5</span>
+        <span>Another Tab 6</span>
+        <span>Another Tab 7</span>
+        <span>Another Tab 8</span>
+        <span>Another Tab 9</span>
+        <span>Another Tab 10</span>
+        <span>Another Tab 11</span>
+        <span>Another Tab 12</span>
+        <span>Another Tab 13</span>
+      </div>
+      
+      <button type="button" class="btn btn-primary" onclick="javascript:tabs5.removeTabs('span:eq(0)')">Remove First Item</button>
+      
+      <br /><br />
+
+      <p><strong>HTML:</strong></p>
+      <pre>
+        &lt;div id=&quot;tabSet&quot; class=&quot;scroll_tabs_theme_dark&quot;&gt;
+          &lt;span&gt;First Tab&lt;/span&gt;
+          &lt;!-- ... A Bunch of other Tabs ... --&gt;
+        &lt;/div&gt;</pre>
+
+      <h3>Custom Background Images</h3>
+
+      <p>Beyond using simple CSS to style your tabbed interface, you could also make use of background images. This can allow you to 
+      provide more unique styling without sacrificing browser compatibility (in some cases). Below is an example of a custom style for
+      a dark-gray themed toolbar. Use the button to remove some tabs in order to see how it appears without the scrolling arrows.<p>
+      
+      <div id="custom_style_container1">
+        <div id="tabs6" class="style1">
+          <span>First Tab</span>
+          <span>Another Tab 2</span>
+          <span>Another Tab 3</span>
+          <span class="tab_selected">Another Tab 4</span>
+          <span>Another Tab 5</span>
+          <span>Another Tab 6</span>
+          <span>Another Tab 7</span>
+          <span>Another Tab 8</span>
+          <span>Another Tab 9</span>
+          <span>Another Tab 10</span>
+          <span>Another Tab 11</span>
+          <span>Another Tab 12</span>
+          <span>Another Tab 13</span>
+        </div>
+      </div>
+      
+      <button type="button" class="btn btn-primary" onclick="javascript:tabs6.removeTabs('span:eq(0)')">Remove First Item</button>
+
+      <br />
+      <br />
+      <p>Here is the Custom CSS that provides for the above example:</p>
+
+      <pre>
+        <span class='pre_comment'>/****** NOTE: .style1 is the class of our DOM object we've applied scrollTabs() to *******/</span>
+
+        <span class='pre_comment'>/* Set the content of the arrows to nothing, we will use a background image of our own. */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_class'>.scroll_tab_left_button</span><span class='pre_before'>::before</span> {
+          <span class='pre_attribute'>content</span>: "";
+          <span class='pre_attribute'>padding</span>: 0px;
+        }
+
+        <span class='pre_class'>.style1</span> <span class='pre_class'>.scroll_tab_right_button</span><span class='pre_before'>::before</span> {
+          <span class='pre_attribute'>content</span>: "";
+          <span class='pre_attribute'>padding</span>: 0px;
+        }
+
+        <span class='pre_comment'>/* Set up our background image (i.e. toolbar for example) behind the tab-set */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_tag'>div</span><span class='pre_class'>.scroll_tab_inner</span> {
+          <span class='pre_attribute'>height</span>: 40px;
+          <span class='pre_attribute'>background</span>: url(../images/toolbar-bg.jpg) repeat-x;
+        }
+
+        <span class='pre_comment'>/* Setup the appearance of each individual TAB */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_tag'>div</span><span class='pre_class'>.scroll_tab_inner</span> <span class='pre_tag'>span</span> {
+          <span class='pre_attribute'>padding-left</span>: 20px;
+          <span class='pre_attribute'>padding-right</span>: 20px;
+          <span class='pre_attribute'>line-height</span>: 40px;
+          <span class='pre_attribute'>font-size</span>: 14px;
+          <span class='pre_attribute'>background</span>: transparent url(../images/scroll_tab_bg.jpg) no-repeat -25px -40px;
+          <span class='pre_attribute'>color</span>: #FFFFFF;
+          <span class='pre_attribute'>cursor</span>: pointer;
+        }
+
+        <span class='pre_comment'>/* Style the FIRST tab differently from the rest, inherits from above */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_tag'>div</span><span class='pre_class'>.scroll_tab_inner</span> <span class='pre_tag'>span</span><span class='pre_class'>.scroll_tab_first</span> {
+          <span class='pre_attribute'>background</span>: transparent url(../images/scroll_tab_bg.jpg) no-repeat -40px -40px;
+        }
+
+        <span class='pre_comment'>/* Style the hover state for each tab */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_tag'>div</span><span class='pre_class'>.scroll_tab_inner</span> <span class='pre_tag'>span</span><span class='pre_class'>.scroll_tab_over</span> {
+          <span class='pre_attribute'>background</span>: transparent url(../images/scroll_tab_bg.jpg) no-repeat -25px 0px !important;
+        }
+
+        <span class='pre_comment'>/* Style the hover state for the first tab (Using MULTI-CLASS selectors may not work right in older browsers) */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_tag'>div</span><span class='pre_class'>.scroll_tab_inner</span> <span class='pre_tag'>span</span><span class='pre_class'>.scroll_tab_first</span><span class='pre_class'>.scroll_tab_over</span> {
+          <span class='pre_attribute'>background</span>: transparent url(../images/scroll_tab_bg.jpg) no-repeat -40px 0px !important;
+        }
+
+        <span class='pre_comment'>/* Style the left of the tab set if the arrows are hidden (the are is wide enough to show ALL the tabs */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_tag'>div</span><span class='pre_class'>.scroll_tab_inner</span> <span class='pre_tag'>span</span><span class='pre_class'>.scroll_tab_left_finisher</span> {
+          <span class='pre_attribute'>padding</span>: 0px;
+          <span class='pre_attribute'>width</span>: 10px;
+          <span class='pre_attribute'>background</span>: transparent url(../images/scroll_tab_bg.jpg) no-repeat 0px -160px;
+        }
+
+        <span class='pre_comment'>/* AND HOVER STATE */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_tag'>div</span><span class='pre_class'>.scroll_tab_inner</span> <span class='pre_tag'>span</span><span class='pre_class'>.scroll_tab_left_finisher</span><span class='pre_class'>.scroll_tab_over</span> {
+          <span class='pre_attribute'>background-position</span>: 0px -120px !important;
+        }
+
+        <span class='pre_comment'>/* AND SELECTED STATE */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_tag'>div</span><span class='pre_class'>.scroll_tab_inner</span> <span class='pre_tag'>span</span><span class='pre_class'>.scroll_tab_left_finisher</span><span class='pre_class'>.tab_selected</span> {
+          <span class='pre_attribute'>background-position</span>: 0px -200px;
+        }
+
+        <span class='pre_comment'>/* Style the right of the tab set if the arrows are hidden (the are is wide enough to show ALL the tabs */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_tag'>div</span><span class='pre_class'>.scroll_tab_inner</span> <span class='pre_tag'>span</span><span class='pre_class'>.scroll_tab_right_finisher</span> {
+          <span class='pre_attribute'>padding</span>: 0px;
+          <span class='pre_attribute'>width</span>: 10px;
+          <span class='pre_attribute'>background</span>: transparent url(../images/scroll_tab_bg.jpg) no-repeat right -160px;
+        }
+
+        <span class='pre_comment'>/* AND HOVER STATE */</span>
+        <span class='pre_class'>.style1</span><span class='pre_tag'>div</span><span class='pre_class'>.scroll_tab_inner</span> <span class='pre_tag'>span</span><span class='pre_class'>.scroll_tab_right_finisher</span><span class='pre_class'>.scroll_tab_over</span> {
+          <span class='pre_attribute'>background-position</span>: right -120px !important;
+        }
+        
+        <span class='pre_comment'>/* AND SELECTED STATE */</span>
+        <span class='pre_class'>.style1</span><span class='pre_tag'>div</span><span class='pre_class'>.scroll_tab_inner</span> <span class='pre_tag'>span</span><span class='pre_class'>.scroll_tab_right_finisher</span><span class='pre_class'>.tab_selected</span> {
+          <span class='pre_attribute'>background-position</span>: right -200px;
+        }
+
+        <span class='pre_comment'>/* Style left scrolling button */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_class'>.scroll_tab_left_button</span> {
+          <span class='pre_attribute'>height</span>: 40px;
+          <span class='pre_attribute'>background</span>: transparent url(../images/scroll_tab_bg.jpg) no-repeat 0px -40px;
+        }
+
+        <span class='pre_comment'>/* Style left scrolling button HOVER */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_class'>.scroll_tab_left_button</span><span class='pre_class'>.scroll_arrow_over</span> {
+          <span class='pre_attribute'>background</span>: transparent url(../images/scroll_tab_bg.jpg) no-repeat 0px 0px;
+        }
+
+        <span class='pre_comment'>/* Style left scrolling button DISABLED */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_class'>.scroll_tab_left_button</span><span class='pre_class'>.scroll_arrow_disabled</span> {
+          <span class='pre_attribute'>background</span>: transparent url(../images/scroll_tab_bg.jpg) no-repeat 0px -80px;
+        }
+
+        <span class='pre_comment'>/* Style right scrolling button */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_class'>.scroll_tab_right_button</span> {
+          <span class='pre_attribute'>height</span>: 40px;
+          <span class='pre_attribute'>background</span>: transparent url(../images/scroll_tab_bg.jpg) no-repeat -474px -40px;
+        }
+
+        <span class='pre_comment'>/* Style right scrolling button HOVER */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_class'>.scroll_tab_right_button</span><span class='pre_class'>.scroll_arrow_over</span> {
+          <span class='pre_attribute'>background</span>: transparent url(../images/scroll_tab_bg.jpg) no-repeat -474px 0px;
+        }
+
+        <span class='pre_comment'>/* Style right scrolling button DISABLED */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_class'>.scroll_tab_right_button</span><span class='pre_class'>.scroll_arrow_disabled</span>{
+          <span class='pre_attribute'>background</span>: transparent url(../images/scroll_tab_bg.jpg) no-repeat -474px -80px;
+        }
+
+        <span class='pre_comment'>/* Style SELECTED (depressed) tab */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_tag'>div</span><span class='pre_class'>.scroll_tab_inner</span> <span class='pre_tag'>span</span><span class='pre_class'>.tab_selected</span> {
+          <span class='pre_attribute'>background</span>: transparent url(../images/scroll_tab_bg.jpg) no-repeat -25px -80px;
+        }
+
+        <span class='pre_comment'>/* Style SELECTED (depressed) if it's the FIRST tab */</span>
+        <span class='pre_class'>.style1</span> <span class='pre_tag'>div</span><span class='pre_class'>.scroll_tab_inner</span> <span class='pre_tag'>span</span><span class='pre_class'>.tab_selected</span><span class='pre_class'>.scroll_tab_first</span> {
+          <span class='pre_attribute'>background-position</span>: -40px -200px;
+        }
+      </pre>
+    </div>
+  </div>
+
+  <div class="footer">
+      &copy; Copyright 2014 Josh Reed<br />
+      Created in Association with <a href='http://www.mosaik.com'>Mosaik Solutions</a><br />
+      Software is released under the MIT License
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="examples/js/bootstrap.min.js"></script>
+  
+  <script src="js/jquery.scrolltabs.js"></script>
+  <script src="js/jquery.mousewheel.js"></script>
+
+  <script type="text/javascript">
+    var tabs3 = null;
+    var tabs4 = null;
+    var tabs5 = null;
+    var tabs6 = null;
+    var tabs7 = null;
+    $(document).ready(function(){
+      $('#tabs1').scrollTabs();
+      $('#tabs2').scrollTabs();
+      tabs3 = $('#tabs3').scrollTabs();
+      tabs4 = $('#tabs4').scrollTabs();
+      tabs5 = $('#tabs5').scrollTabs();
+      tabs6 = $('#tabs6').scrollTabs();
+      tabs7 = $('#tabs7').scrollTabs();
+    });
+  </script>
+</body>
+</html>

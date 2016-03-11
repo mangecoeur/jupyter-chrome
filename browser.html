@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"> -->
+    <!-- <link rel="stylesheet" href="libraries/scrolltabs/css/scrolltabs.css"> -->
+
     <link rel="stylesheet" href="browser.css">
+    <!-- <script src="libraries/jquery-2.2.1.min.js"></script>
+    <script src="libraries/scrolltabs/js/jquery.mousewheel.js"></script>
+    <script src="libraries/scrolltabs/js/jquery.scrolltabs.js"></script> -->
+
     <script src="config.js"></script>
     <script src="popup.js"></script>
     <script src="tabs.js"></script>
     <script src="browser.js"></script>
     <script src="browser_main.js"></script>
-    <script src="css.js"></script>
-      <script src="css_main.js"></script>
   </head>
   <body>
     <div id="controls">
 
       <div id="tab-controls">
-        <ul id="tab-container">
+        <ul id="tab-container" class="scroll_tabs_theme_light">
           <li id="new-tab"><a href="#new-tab"></a></li>
         </ul>
+        <!-- <div id='settings-button'><i  class="fa fa-cog"></i></div> -->
       </div>
 
       <div id="browser-controls">

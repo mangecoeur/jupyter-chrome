@@ -86,6 +86,11 @@ compared to the back/forward buttons */
   -webkit-flex: 1;
 }
 
+#settings-control {
+  /*display: inline-block;*/
+  float: right;
+}
+
 webview,
 .webview-container {
   display: inline-block;
@@ -188,7 +193,6 @@ webview {
   border-left: 1px;
   border-top: 1px;
   border-bottom: 1px;
-  /*border-color: #337AB7;*/
 
 }
 #tab-container li.pinned p {

@@ -1,34 +1,42 @@
+// TODO setting page. Probably do like chrome and just have normal page, open tab with iframe
+// avoids having to drag in something to do modals or extra window or something.
+// TODO prevent multiple opening (option?) if you click on an already opened notebook in home,
+// just switches to that tab
+
 var browser = (function(configModule, tabsModule) {
   var dce = function(str) { return document.createElement(str); };
 
   var Browser = function(
     controlsContainer,
-    // back,
-    // forward,
-    // home,
-    // reload,
     locationForm,
     locationBar,
     tabContainer,
-    contentContainer,
-    newTabElement
+    contentContainer
   ) {
     this.controlsContainer = controlsContainer;
-    // this.back = back;
-    // this.forward = forward;
-    // this.reload = reload;
-    // this.home = home;
     this.locationForm = locationForm;
     this.locationBar = locationBar;
     this.tabContainer = tabContainer;
     this.contentContainer = contentContainer;
-    this.newTabElement = newTabElement;
+    self = this;
+
+
+    chrome.storage.onChanged.addListener(function(changes, namespace) {
+      for (key in changes) {
+        var storageChange = changes[key];
+        if (key == 'homepage') {
+          self.homepage = storageChange.newValue;
+          // update homepage tab
+        }
+      }
+    });
+
+
     this.tabs = new tabsModule.TabList(
         'tabs',
         this,
         tabContainer,
-        contentContainer,
-        newTabElement);
+        contentContainer);
 
     this.init();
   };
@@ -59,24 +67,12 @@ var browser = (function(configModule, tabsModule) {
       //     tab.doReload();
       //   }
       // });
-      // browser.reload.addEventListener(
-      //   'webkitAnimationIteration',
-      //   function() {
-      //     // Between animation iterations: If loading is done, then stop spinning
-      //     if (!browser.tabs.getSelected().isLoading()) {
-      //       document.body.classList.remove('loading');
-      //     }
-      //   }
-      // );
+
 
       browser.locationForm.addEventListener('submit', function(e) {
         e.preventDefault();
         browser.tabs.getSelected().navigateTo(browser.locationBar.value);
       });
-
-      browser.newTabElement.addEventListener(
-        'click',
-        function(e) { return browser.doNewTab(e); });
 
       window.addEventListener('message', function(e) {
         if (e.data) {
@@ -95,12 +91,28 @@ var browser = (function(configModule, tabsModule) {
 
       var webview = dce('webview');
       var tab = browser.tabs.append(webview);
+
+
+
+
       // Global window.newWindowEvent may be injected by opener
       if (window.newWindowEvent) {
         window.newWindowEvent.window.attach(webview);
       } else {
-        tab.navigateTo(configModule.homepage);
-        tab.pin();
+        var homepage;
+        // First window to be opened is the homepage
+        chrome.storage.local.get('homepage', function(result) {
+          if (result.homepage){
+            homepage = result.homepage
+          }
+          else{
+              homepage = configModule.homepage
+          }
+          console.log(homepage)
+          tab.navigateTo(homepage);
+          tab.pin();
+        })
+
       }
       browser.tabs.selectTab(tab);
     }(this));
