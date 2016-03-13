@@ -15,8 +15,9 @@ Currently only tested on OSX using local notbook server.
 A version wil be uploaded to the Chrome Web Store in due course. Install the development version by downloading the source, unzipping, and loading in Chrome as an unpacked extension [see here](https://developer.chrome.com/extensions/getstarted#unpacked).
 
 
+## Setup
 
-
+The only configuration needed is the url to your Jupyter server. This defaults to `localhost:8888` which is the default for local server.
 
 ## Changelog
 
