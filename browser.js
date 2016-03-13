@@ -11,26 +11,22 @@ var browser = (function(configModule, tabsModule) {
     locationForm,
     locationBar,
     tabContainer,
-    contentContainer
+    contentContainer,
+    errorContainer
   ) {
+    self = this;
+    
     this.controlsContainer = controlsContainer;
     this.locationForm = locationForm;
     this.locationBar = locationBar;
     this.tabContainer = tabContainer;
     this.contentContainer = contentContainer;
-    self = this;
-
-
-    chrome.storage.onChanged.addListener(function(changes, namespace) {
-      for (key in changes) {
-        var storageChange = changes[key];
-        if (key == 'homepage') {
-          self.homepage = storageChange.newValue;
-          // update homepage tab
-        }
-      }
-    });
-
+    this.errorContainer = errorContainer;
+    
+    this.settingsButton = document.getElementById('settings-button');
+    this.settingsButton.addEventListener('click', function(){
+      self.openSettings();
+    })
 
     this.tabs = new tabsModule.TabList(
         'tabs',
@@ -42,6 +38,7 @@ var browser = (function(configModule, tabsModule) {
   };
 
   Browser.prototype.init = function() {
+    this.hideAllErrors();
     (function(browser) {
       window.addEventListener('resize', function(e) {
         browser.doLayout(e);
@@ -50,6 +47,18 @@ var browser = (function(configModule, tabsModule) {
       window.addEventListener('keydown', function(e) {
         browser.doKeyDown(e);
       });
+      
+    chrome.storage.onChanged.addListener(function(changes, namespace) {
+      for (key in changes) {
+        var storageChange = changes[key];
+        if (key == 'homepage') {
+          self.homepage = storageChange.newValue;
+          self.homepageTab.navigateTo(self.homepage);
+          self.hideAllErrors();
+        }
+      }
+    });
+    
 
       // browser.back.addEventListener('click', function(e) {
       //   browser.tabs.getSelected().goBack();
@@ -92,9 +101,6 @@ var browser = (function(configModule, tabsModule) {
       var webview = dce('webview');
       var tab = browser.tabs.append(webview);
 
-
-
-
       // Global window.newWindowEvent may be injected by opener
       if (window.newWindowEvent) {
         window.newWindowEvent.window.attach(webview);
@@ -102,21 +108,37 @@ var browser = (function(configModule, tabsModule) {
         var homepage;
         // First window to be opened is the homepage
         chrome.storage.local.get('homepage', function(result) {
-          if (result.homepage){
-            homepage = result.homepage
-          }
-          else{
-              homepage = configModule.homepage
-          }
-          console.log(homepage)
-          tab.navigateTo(homepage);
-          tab.pin();
-        })
+            if (result.homepage){
+                homepage = result.homepage
+            }
+            else{
+                homepage = configModule.homepage
+            }
+            self.homepageTab = tab;
 
+            self.homepageTab.navigateTo(homepage);
+            self.homepageTab.pin();
+        
+            self.homepageTab.webview.addEventListener(
+                'loadabort',
+                function (e) {
+                    // tab.navigateTo('http://www.google.com');
+                    self.showError('no-server-error');
+             });
+      
+        });
       }
       browser.tabs.selectTab(tab);
     }(this));
   };
+
+  Browser.prototype.openSettings = function () {
+    var tab = this.tabs.append(dce('iframe'));
+    tab.navigateTo('settings.html');
+    tab.setLabel('Settings');
+    this.tabs.selectTab(tab);
+    return tab;
+  }
 
   Browser.prototype.doLayout = function(e) {
     var controlsHeight = this.controlsContainer.offsetHeight;
@@ -132,12 +154,16 @@ var browser = (function(configModule, tabsModule) {
     var layoutElements = [
       this.contentContainer,
       webviewContainer,
-      webview];
+      webview
+    ];
+
     for (var i = 0; i < layoutElements.length; ++i) {
       layoutElements[i].style.width = contentWidth + 'px';
       layoutElements[i].style.height = contentHeight + 'px';
     }
   };
+
+
 
   // New window that is NOT triggered by existing window
   Browser.prototype.doNewTab = function(e) {
@@ -187,12 +213,32 @@ var browser = (function(configModule, tabsModule) {
       document.body.classList.add('loading');
     }
     var selectedWebview = selectedTab.getWebview();
-    // this.back.disabled = !selectedWebview.canGoBack();
-    // this.forward.disabled = !selectedWebview.canGoForward();
     if (this.locationBar.value != selectedTab.url) {
       this.locationBar.value = selectedTab.url;
     }
   };
+  
+  Browser.prototype.showError = function (errorName) {
+    //   Should this be with classes?
+    var el = document.getElementById(errorName);
+    el.classList.remove('hidden');
+  };
+    
+  Browser.prototype.hideError = function (errorName) {
+    //   Should this be with classes?
+    var el = this.errorContainer.getElementById(errorName);
+    el.classList.add('hidden')
+  };
+  
+  Browser.prototype.hideAllErrors = function () {
+    //   Should this be with classes?
+    var els = document.querySelectorAll('.error-view');
+    // console.log
+    for (var i = 0; i < els.length; i++) {
+        var el = els[i]
+        el.classList.add('hidden');
+    }
+  }
 
   return {'Browser': Browser};
 })(config, tabs);

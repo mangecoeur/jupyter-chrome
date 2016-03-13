@@ -195,7 +195,7 @@ var tabs = (function(popupModule) {
     this.webview.setAttribute('data-name', this.name);
     this.webviewContainer.setAttribute('data-name', this.name);
     this.webviewContainer.classList.add('webview-container');
-
+ 
     (function(tab) {
       tab.webview.addEventListener(
           'loadcommit',
@@ -214,7 +214,7 @@ var tabs = (function(popupModule) {
 
   Tab.prototype.setLabel = function(newLabel) {
     if (this.pinned) {
-      this.label.innerText = '.'
+      this.label.innerText = '&nbsp;'
     }
     else{
       this.label.innerText = newLabel;
@@ -312,7 +312,9 @@ var tabs = (function(popupModule) {
   };
 
   Tab.prototype.stopNavigation = function() {
-    this.webview.stop();
+    if (this.webview.stop != undefined) {
+        this.webview.stop();    
+    }
   };
 
   Tab.prototype.doReload = function() {
