@@ -121,6 +121,9 @@ var tabs = (function(popupModule) {
   };
 
   TabList.prototype.removeTab = function(tab, idx) {
+    if (!tab.pinned) {
+         this.removeTab(this.list[idx], idx);     
+     
     if (this.list.length > 1) {
       if (!(idx === 0 || idx)) {
         idx = this.getTabIdx(tab);
@@ -161,6 +164,7 @@ var tabs = (function(popupModule) {
     } else {
       return null;
     }
+}
   };
 
   TabList.prototype.getSelected = function() {
