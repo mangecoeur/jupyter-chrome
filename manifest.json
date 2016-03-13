@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Jupyer Viewer",
+  "name": "Jupyter Browser",
   "version": "0.2",
   "icons": {
     "16": "jupyter-sq-16.png",
@@ -12,9 +12,6 @@
     }
   },
   "permissions": [
-    "http://localhost/*",
-    "http://localhost:8888/*",
-    "file://*",
     "webview",
     "storage"
   ]
