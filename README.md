@@ -12,7 +12,9 @@ Currently only tested on OSX using local notbook server.
 
 ## Installation
 
-You can install the development version by downloading the source, unzipping, and loading in Chrome as an unpacked extension [see here](https://developer.chrome.com/extensions/getstarted#unpacked).
+A version wil be uploaded to the Chrome Web Store in due course. Install the development version by downloading the source, unzipping, and loading in Chrome as an unpacked extension [see here](https://developer.chrome.com/extensions/getstarted#unpacked).
+
+
 
 
 
@@ -23,6 +25,7 @@ You can install the development version by downloading the source, unzipping, an
 
 ## Known issues
 
+- This isn't yet uploaded to the Chrome app store.
 - The tab-bar implementation is very simple, and will probably break if you try to open too many tabs.
 
 
