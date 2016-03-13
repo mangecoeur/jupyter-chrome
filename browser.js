@@ -133,11 +133,16 @@ var browser = (function(configModule, tabsModule) {
   };
 
   Browser.prototype.openSettings = function () {
-    var tab = this.tabs.append(dce('iframe'));
-    tab.navigateTo('settings.html');
-    tab.setLabel('Settings');
-    this.tabs.selectTab(tab);
-    return tab;
+    var tid = this.tabs.getTabIdxFromUrl('settings.html');
+    if (tid != -1) {
+        this.tabs.selectIdx(tid);
+    }
+    else {
+        var tab = this.tabs.append(dce('iframe'));
+        tab.navigateTo('settings.html');
+        tab.setLabel('Settings');
+        this.tabs.selectTab(tab);
+    }
   }
 
   Browser.prototype.doLayout = function(e) {
@@ -220,7 +225,7 @@ var browser = (function(configModule, tabsModule) {
   
   Browser.prototype.showError = function (errorName) {
     //   Should this be with classes?
-    var el = document.getElementById(errorName);
+    var el = this.errorContainer.getElementById(errorName);
     el.classList.remove('hidden');
   };
     
