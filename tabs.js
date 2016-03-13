@@ -19,6 +19,37 @@ var tabs = (function(popupModule) {
     return this.list.length;
   };
 
+  TabList.prototype.getTabIdxFromUrl = function(url) {
+    
+    var idx = -1;
+    for (var i = 0; i < this.list.length; ++i) {
+      if (this.list[i].url == url) {
+        idx = i;
+        break;
+      }
+    }
+    if (idx < this.list.length && idx != -1)  {
+      return idx;
+    } else {
+      return -1;
+    }
+  };
+  TabList.prototype.getTabIdxFromName = function(tabName) {
+    var idx = 0;
+    for (var i = 0; i < this.list.length; ++i) {
+      if (this.list[i].name == tabName) {
+        idx = i;
+        break;
+      }
+    }
+    if (idx < this.list.length) {
+      return idx;
+    } else {
+      console.warn('Warning: Failed to find tab in list', tab);
+      return -1;
+    }
+  };
+  
   TabList.prototype.getTabIdx = function(tab) {
     var idx = 0;
     for (var i = 0; i < this.list.length; ++i) {
@@ -67,6 +98,7 @@ var tabs = (function(popupModule) {
   };
 
   TabList.prototype.append = function(webview) {
+    
     var tabName = this.name + '-' + this.tabNameCounter;
     this.tabNameCounter = this.tabNameCounter + 1;
     var tab = new Tab(tabName, this, webview);
@@ -172,8 +204,8 @@ var tabs = (function(popupModule) {
     this.setLabel('Loading...');
 
     closeLink.href = '#close-' + name;
-    closeLink.innerText = 'x';
-
+    
+    closeLink.innerHTML = '<span class="glyphicon glyphicon-remove"></span>';
     labelContainer.appendChild(label);
     labelContainer.appendChild(closeLink);
 
@@ -195,7 +227,7 @@ var tabs = (function(popupModule) {
     this.webview.setAttribute('data-name', this.name);
     this.webviewContainer.setAttribute('data-name', this.name);
     this.webviewContainer.classList.add('webview-container');
-
+ 
     (function(tab) {
       tab.webview.addEventListener(
           'loadcommit',
@@ -214,7 +246,7 @@ var tabs = (function(popupModule) {
 
   Tab.prototype.setLabel = function(newLabel) {
     if (this.pinned) {
-      this.label.innerText = '.'
+      this.label.innerText = '&nbsp;'
     }
     else{
       this.label.innerText = newLabel;
@@ -296,23 +328,35 @@ var tabs = (function(popupModule) {
   // New window triggered by existing window
   Tab.prototype.doNewTab = function(e) {
     e.preventDefault();
+          // If that tab is already opened, switch to it instead.
 
     var dis = e.windowOpenDisposition;
 
-    if (dis == 'new_background_tab' || dis == 'new_foreground_tab') {
-      var newWebview = dce('webview');
-      e.window.attach(newWebview);
-      var newTab = this.tabList.append(newWebview);
-      if (e.windowOpenDisposition == 'new_foreground_tab') {
-        this.tabList.selectTab(newTab);
-      }
-    } else {
-      this.popupConfirmBoxList.append(e);
+
+    var tId = this.tabList.getTabIdxFromUrl(e.targetUrl);
+    if (tId != -1) {
+        this.tabList.selectIdx(tId);
     }
+    else {
+      if (dis == 'new_background_tab' || dis == 'new_foreground_tab') {
+        var newWebview = dce('webview');
+        e.window.attach(newWebview);
+        var newTab = this.tabList.append(newWebview);
+    
+        if (e.windowOpenDisposition == 'new_foreground_tab') {
+            this.tabList.selectTab(newTab);
+        }
+        } else {
+        this.popupConfirmBoxList.append(e);
+        }
+    }
+    
   };
 
   Tab.prototype.stopNavigation = function() {
-    this.webview.stop();
+    if (this.webview.stop != undefined) {
+        this.webview.stop();    
+    }
   };
 
   Tab.prototype.doReload = function() {
@@ -329,9 +373,8 @@ var tabs = (function(popupModule) {
 
   Tab.prototype.navigateTo = function(url) {
     this.stopNavigation();
-
     this.webview.src = url;
-
+    this.url = url;
   };
 
   Tab.prototype.injectCss = function() {
@@ -346,14 +389,14 @@ var tabs = (function(popupModule) {
   };
 
   Tab.prototype.pin = function() {
-      this.closeLink.innerText = '';
+      this.closeLink.innerHTML = '';
       this.labelContainer.classList.add('pinned');
       this.pinned = true;
       this.setLabel('');
   };
 
   Tab.prototype.unpin = function() {
-      this.closeLink.innerText = 'x';
+      this.closeLink.innerHTML = '<span class="glyphicon glyphicon-remove"></span>';
       this.labelContainer.classList.remove('pinned');
       this.pinned = false;
     };

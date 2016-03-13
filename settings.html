@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="libraries/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libraries/bootstrap/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="settings.css">
+
     <script src="config.js"></script>
     <script src="settings.js"></script>
+    <script src="settings_main.js"></script>
 
-
+    <title>Settings</title>
   </head>
-  <body>
+  <body id="settings">
     <div id="content-container">
       <form id="edit-settings">
-        <fieldset>
-          <label for="jupyter_homepage">Jupyter server address:</label>
-          <input type="text" id="jupyter_homepage" />
+        <fieldset class="form-group">
+          <label for="jupyter_homepage">Jupyter server url:</label>
+          <input class="form-control"  type="text" id="jupyter_homepage" />
         </fieldset>
 
-        <div class="button">
-          <button type="save">Save settings</button>
-      </div>
+        <fieldset class="button">
+          <button class="btn btn-default" type="save">Save settings</button>
+        </fieldset>
       </form>
     </div>
 

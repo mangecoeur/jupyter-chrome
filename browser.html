@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"> -->
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="libraries/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libraries/bootstrap/css/bootstrap-theme.min.css">
     <!-- <link rel="stylesheet" href="libraries/scrolltabs/css/scrolltabs.css"> -->
 
     <link rel="stylesheet" href="browser.css">
@@ -22,9 +24,9 @@
         <ul id="tab-container" class="scroll_tabs_theme_light">
           <li id="new-tab"><a href="#new-tab"></a></li>
         </ul>
-        <!-- <div id='settings-button'><i  class="fa fa-cog"></i></div> -->
+        <div id='settings-button'><a href='#'><span  class="glyphicon glyphicon-cog"></span></a></div>
       </div>
-
+   
       <div id="browser-controls">
         <!-- <button id="reload" title="Reload">&#10227;</button> -->
 
@@ -36,7 +38,12 @@
       </div>
 
     </div>
-
+    
+    <div id="error-container">
+        <div id="no-server-error" class="error-view alert alert-danger hidden">
+            <p>Could not connect to the Jupter server. Make sure the server is running and that the server url is correctly configured in Settings</p>
+        </div>
+    </div>
     <div id="content-container">
     </div>
 

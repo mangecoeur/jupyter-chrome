@@ -16,6 +16,24 @@ div {
   border: 0px;
 }
 
+#settings-button {
+  /*display: inline-block;*/
+  float: right;
+    font-size: 14px;
+  line-height: 24px;
+  border-radius: 2px;
+  padding: 0 6px;
+  color: #000;
+}
+
+#settings-button a{
+    color: #000;
+}
+
+#settings-button a:hover{
+    color: #337AB7;
+}
+
 #content-container {
   display: inline-block;
   position: relative;
@@ -30,65 +48,18 @@ div {
   /*border-bottom: solid 1px #ccc;*/
 }
 
-#controls button,
-#controls input {
-  font-size: 14px;
-  line-height: 24px;
-  border-radius: 2px;
-  padding: 0 6px;
-}
+/* Webview and iframe */
 
-#controls button#reload {
-  border-radius: 16px;
-}
-
-#tab-controls {
-  padding: 1px 3px 0px 3px;
-  /*background: #888;*/
-  background: rgb(203,203,203);
-}
-
-#browser-controls {
+iframe,
+.webview-container {
+  display: inline-block;
   padding: 0px;
-}
-
-
-/* These glyphs are on the small side, make them look more natural when
-compared to the back/forward buttons */
-#controls #home {
-  font-size: 24px;
-}
-
-#controls #reload {
-  font-size: 20px;
-}
-
-#location {
-  border: solid 1px #ccc;
-  padding: 2px;
-  width: 100%;
-  -webkit-box-sizing: border-box;
-}
-
-#browser-controls {
-  height: 0px;
-  display: -webkit-flex;
-  -webit-flex-direction: column;
-}
-
-#browser-controls #location-form {
-  -webkit-flex: 1;
-  display: -webkit-flex;
-  -webit-flex-direction: column;
-}
-
-#browser-controls #center-column {
-  -webkit-flex: 1;
-}
-
-#settings-control {
-  /*display: inline-block;*/
-  float: right;
+  margin: 0px;
+  border: 0px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  visibility: hidden;
 }
 
 webview,
@@ -151,21 +122,20 @@ webview {
   text-decoration: none;
 }
 
-/* The reload button turns into a spinning trobber */
-.loading #reload {
-  -webkit-animation: spinner-animation .5s infinite linear;
-  -webkit-transform-origin: 50% 55.5%;
-}
-
-@-webkit-keyframes spinner-animation {
-  0% { -webkit-transform: rotate(0deg); }
-  100% {-webkit-transform: rotate(360deg); }
+#tab-controls {
+  height: 26px;
+  padding: 1px 3px 0px 3px;
+  /*background: #888;*/
+  background: rgb(203,203,203);
 }
 
 #tab-container {
+  height: 26px;
   margin: 0px 5px 0px 5px;
   padding: 0px;
   display: inline-block;
+    font-size: 12px;
+
 }
 
 #tab-container li {
@@ -174,7 +144,7 @@ webview {
   vertical-align: bottom;
   width: 100px;
   margin: 0px;
-  padding: 4px 6px 6px 6px;
+  padding: 4px 6px 4px 6px;
   border: 0px;
   background: #ccc;
 }
@@ -188,7 +158,7 @@ webview {
 }
 
 #tab-container li.pinned {
-  width: 18px;
+  width: 30px;
   border: 2px solid #337AB7;
   border-left: 1px;
   border-top: 1px;
@@ -219,16 +189,20 @@ webview {
   position: absolute;
   right: 2px;
   z-index: 2;
-  padding-left: 1px;
-  padding-right: 1px;
+  padding: 1px;
+  /*padding-right: 1px;*/
   color: #666;
   font-weight: bold;
   text-decoration: none;
   cursor: default;
+  width: 17px;
+  height: 17px;
 }
 
 #tab-container li a:hover {
   color: #000;
+  border: solid 1px #666;
+  border-radius: 2px;
 }
 
 #tab-container li#new-tab {
@@ -241,3 +215,54 @@ webview {
   font-size: 18px;
   padding: 0px;
 }
+
+
+#error-container div {
+    /*background: #f33;*/
+}
+
+/*Controls are hidden anyway...*/
+
+#controls button,
+#controls input {
+  font-size: 14px;
+  line-height: 24px;
+  border-radius: 2px;
+  padding: 0 6px;
+}
+
+#controls button#reload {
+  border-radius: 16px;
+}
+
+
+
+#browser-controls {
+  padding: 0px;
+}
+
+
+#location {
+  border: none;
+  padding: 0px;
+  height: 0px;
+  width: 0px;
+  margin: 0px;
+}
+
+#browser-controls {
+  height: 0px;
+  display: -webkit-flex;
+  -webit-flex-direction: column;
+}
+
+#browser-controls #location-form {
+  -webkit-flex: 1;
+  display: -webkit-flex;
+  -webit-flex-direction: column;
+}
+
+#browser-controls #center-column {
+  -webkit-flex: 1;
+}
+
