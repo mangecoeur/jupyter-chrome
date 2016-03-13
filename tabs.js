@@ -114,7 +114,10 @@ var tabs = (function(popupModule) {
   };
 
   TabList.prototype.removeIdx = function(idx) {
-    this.removeTab(this.list[idx], idx);
+      var tab = this.list[idx];
+      if (!tab.pinned) {
+         this.removeTab(this.list[idx], idx);     
+      }
   };
 
   TabList.prototype.removeTab = function(tab, idx) {

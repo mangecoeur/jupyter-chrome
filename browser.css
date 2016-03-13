@@ -205,6 +205,13 @@ webview {
   border-radius: 2px;
 }
 
+#tab-container li.pinned a:hover {
+  /*color: #000;*/
+  border: none;
+  border-radius: 0px;
+}
+
+
 #tab-container li#new-tab {
   background: transparent;
   vertical-align: baseline;

@@ -122,7 +122,6 @@ var browser = (function(configModule, tabsModule) {
             self.homepageTab.webview.addEventListener(
                 'loadabort',
                 function (e) {
-                    // tab.navigateTo('http://www.google.com');
                     self.showError('no-server-error');
              });
       
