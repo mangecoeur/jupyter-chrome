@@ -121,8 +121,8 @@ var tabs = (function(popupModule) {
   };
 
   TabList.prototype.removeTab = function(tab, idx) {
+    //   console.log(tab);
     if (!tab.pinned) {
-         this.removeTab(this.list[idx], idx);     
      
     if (this.list.length > 1) {
       if (!(idx === 0 || idx)) {
