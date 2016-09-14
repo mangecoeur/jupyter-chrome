@@ -1,3 +1,7 @@
+# THIS PROJECT IS GOING AWAY
+
+Chrome is killing 'native' apps it seems, and this one never worked particularly well ;) Consider this project unmaintined : you might prefer to look at [http://nteract.io/](http://nteract.io/)
+
 # Jupyter Viewer: A chrome app for interacting with Jupyter notebooks
 
 A simple chrome packaged app for interacting with the Jupyter server. Get rid of the distracting browser user interface to put notebooks front-and-centre.
